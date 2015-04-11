@@ -1,0 +1,20 @@
+#!/bin/bash
+
+#source colour.bash
+
+#COLORS=( 'BLACK' 'RED' 'GREEN' 'YELLOW' 'BLUE' 'MAGENTA' 'WHITE' )
+#NOCOLOR="\[\e[00m\]"
+
+echo "       30       31       32       33       34       35       36       37"
+for attr in {0..7}; do
+    echo "Leading attr $attr"
+    for bg in {40..47}; do
+	echo -n " $bg "
+	for fg in {30..37}; do
+	    CODE="${attr};${fg};${bg}"
+	    echo -e -n "\e[$attr;$fg;${bg}m $CODE \e[0m "
+	done
+	echo ' '
+    done
+done
+# END OF FILE --------------------------------------------------
