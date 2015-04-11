@@ -30,10 +30,10 @@ function encode_attr {
     'BRIGHT')     ATTR=1 ;;
     'BOLD')       ATTR=1 ;;
     'DIM')        ATTR=2 ;;
-    'UNDERLINE')  ATTR=3 ;;
-    #           there is no #4
+    'ITALIC')     ATTR=3 ;;
+    'UNDERLINE')  ATTR=4 ;;
     'BLINK')      ATTR=5 ;;
-    #           there is no #6
+    'DUNNO')      ATTR=6 ;;    
     'REVERSE')    ATTR=7 ;;
     'HIDDEN')     ATTR=8 ;;
     *)
@@ -100,9 +100,15 @@ function ANSI_color {
        encode_fg "$1"; 
    fi
 #   echo "in ANSI_color, ATTR=$ATTR, FG=$FG, BG=$BG, COLOR=$COLOR"
-   ANSI_SEQUENCE="\[\e[${ATTR}${FG}${BG}m\]";
+   ANSI_SEQUENCE="\e[${ATTR}${FG}${BG}m";
 #   echo "$ANSI_SEQUENCE test \[\e[00m\]"
    return
+}
+
+function hide_escape {
+    if [[ -n $ANSI_SEQUENCE ]]; then
+	ANSI_SEQUENCE="\[${ANSI_SEQUENCE}\]"
+    fi
 }
 
 # END OF FILE --------------------------------------------------
