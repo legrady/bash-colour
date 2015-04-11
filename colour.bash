@@ -82,17 +82,21 @@ function ANSI_color {
    ATTR='';
    FG='';
    BG='';
-   if [[ $# -gt 3 ]]; then
+   if [[ $# -gt 3 ]]; then	# Handle too many args
        echo "\[\e[5:31m \]Too many args to color(): $* \[\e[00m\]";
        exit;
    fi
-   if [[ $# == 3 ]]; then
+   if [[ $# == 0 ]]; then	# Handle no args => 'normal' code
+       ANSI_SEQUENCE="\e[00m]"
+       return
+   fi
+   if [[ $# == 3 ]]; then	# Handle optional attribute
        local attr=$1;
        shift
        encode_attr "$attr"; 
        ATTR="$ATTR;";		# add semicolon
    fi
-   if [[ $# == 2 ]]; then
+   if [[ $# == 2 ]]; then	# single arg is fg, bg is optional
        encode_fg "$1";
        FG="$FG;";		# add semicolon
        encode_bg "$2"; 
@@ -110,5 +114,12 @@ function hide_escape {
 	ANSI_SEQUENCE="\[${ANSI_SEQUENCE}\]"
     fi
 }
+
+# (c) April, 2015 Tom Legrady <Tom@TomLegrady.com>
+#
+# Released under
+#   Artistic License (http://dev.perl.org/licenses/artistic.html)
+#   GNU Lublic License v3 (http://www.gnu.org/licenses/).
+# Use it, just don't claim you wrote it.
 
 # END OF FILE --------------------------------------------------

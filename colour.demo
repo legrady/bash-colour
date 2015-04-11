@@ -37,4 +37,11 @@ PS1="${PS_SEP} ${DATE} ${PS_SEP} ${TIME} ${PS_OPEN}${USER}${PS_CLOSE} ${WHERE} $
 #echo "PS1 is $PS1"
 #echo "end of file"
 
+# (c) April, 2015 Tom Legrady <Tom@TomLegrady.com>
+#
+# Released under
+#   Artistic License (http://dev.perl.org/licenses/artistic.html)
+#   GNU Lublic License v3 (http://www.gnu.org/licenses/).
+# Use it, just don't claim you wrote it.
+
 # END OF FILE --------------------------------------------------

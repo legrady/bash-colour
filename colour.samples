@@ -19,4 +19,12 @@ for attr in ${ATTRIBS[@]}; do
 	echo -e $SAMPLE
     done
 done
+
+# (c) April, 2015 Tom Legrady <Tom@TomLegrady.com>
+#
+# Released under
+#   Artistic License (http://dev.perl.org/licenses/artistic.html)
+#   GNU Lublic License v3 (http://www.gnu.org/licenses/).
+# Use it, just don't claim you wrote it.
+
 # END OF FILE --------------------------------------------------
