@@ -1,0 +1,22 @@
+#!/bin/bash
+
+source colour.bash
+
+ATTRIBS=( 'NORMAL' 'BRIGHT' 'DIM' 'ITALIC' 'UNDERLINE' 'BLINK' 'DUNNO' 'REVERSE' 'HIDDEN' );
+COLORS=( 'BLACK' 'RED' 'GREEN' 'YELLOW' 'BLUE' 'MAGENTA' 'WHITE' );
+NOCOLOR="\e[00m"
+
+for attr in ${ATTRIBS[@]}; do
+    echo -e "\t$attr";
+    for fg in ${COLORS[@]}; do
+	SAMPLE=" $fg\t"
+	for bg in ${COLORS[@]}; do
+	    ANSI_color $attr $fg $bg;
+#	    echo -e  "$attr;$fg;$bg\t=> ${ANSI_SEQUENCE} SAMPLE ${NOCOLOR}"
+	    SAMPLE+=" ${ANSI_SEQUENCE} Sample "
+	done
+	SAMPLE+=$NOCOLOR
+	echo -e $SAMPLE
+    done
+done
+# END OF FILE --------------------------------------------------
