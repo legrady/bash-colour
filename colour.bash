@@ -105,38 +105,4 @@ function ANSI_color {
    return
 }
 
-# echo "End of defining functions"
-POINTER=$(echo -e "-\xe2\x9e\xa4")
-#echo "Pointer is $POINTER"
-
-ANSI_color 'GREEN' 'BLACK'
-PSCOLOR=$ANSI_SEQUENCE
-
-ANSI_color 'BRIGHT' 'WHITE' 'BLACK'
-PS_SEP_COLOR=$ANSI_SEQUENCE
-
-NOCOLOR="\[\e[00m\]"
-#echo -e "PSCOLOR=$PSCOLOR sample $NOCOLOR PS_SEP_COLOR=$PS_SEP_COLOR sample $NOCOLOR NOCOLOR=$NOCOLOR"
-#echo "defined colors"
-
-PS_SEP=$PS_SEP_COLOR
-PS_SEP+='|'
-PS_OPEN=$PS_SEP_COLOR
-PS_OPEN+='['
-PS_CLOSE=$PS_SEP_COLOR
-PS_CLOSE+=']'
-#echo "PS_SEP = $PS_SEP; PS_OPEN = $PS_OPEN; PS_CLOSE = $PS_CLOSE"
-#echo "defined separators"
-
-DATE="${PSCOLOR}\d"
-TIME="${PSCOLOR}\t"
-USER="${PSCOLOR}\u@\h"
-WHERE="${PSCOLOR}\w"
-#echo "defined components"
-
-
-PS1="${PS_SEP} ${DATE} ${PS_SEP} ${TIME} ${PS_OPEN}${USER}${PS_CLOSE} ${WHERE} ${PS_SEP} ${NOCOLOR} \n${PS_SEP}${PSCOLOR}${POINTER}  ${NOCOLOR} "
-#echo "PS1 is $PS1"
-#echo "end of file"
-
 # END OF FILE --------------------------------------------------
