@@ -1,0 +1,89 @@
+#!/bin/bash
+
+# invoke this file from your .bashrc and it will set the prompt PS1.
+# I have it and colour.bash in a subdirectory ~/.bash, so the .bashrc 
+# contains the following, with the 'source' line not comented, of course.
+#
+#     # Set prompt
+#     source /home/legrady/.bash/set_prompt
+#
+# The 'source line below similarly uses a fully-qualified path.
+# 
+# The version in /root use 'RED' 'BLACK' for the color, and a dollar
+# sign for the POINTER.
+
+# How long a trailing segment of the path to display
+#
+Wlen=25
+
+source /home/legrady/.bash/colour.bash
+
+# echo "End of defining functions"
+POINTER=$(echo -e "-\xe2\x9e\xa4")
+#echo "Pointer is $POINTER"
+
+ANSI_color 'GREEN' 'BLACK'
+hide_escape
+PSCOLOR=$ANSI_SEQUENCE
+
+ANSI_color 'BRIGHT' 'WHITE' 'BLACK'
+hide_escape
+PS_SEP_COLOR=$ANSI_SEQUENCE
+
+NOCOLOR="\[\e[00m\]"
+#echo -e "PSCOLOR=$PSCOLOR sample $NOCOLOR PS_SEP_COLOR=$PS_SEP_COLOR sample $NOCOLOR NOCOLOR=$NOCOLOR"
+#echo "defined colors"
+
+PS_SEP=$PS_SEP_COLOR
+#PS_SEP+='|'
+PS_SEP+=$(echo -e "\xe2\x94\x83")
+PS_OPEN=$PS_SEP_COLOR
+PS_OPEN+='['
+PS_CLOSE=$PS_SEP_COLOR
+PS_CLOSE+=']'
+#echo "PS_SEP = $PS_SEP; PS_OPEN = $PS_OPEN; PS_CLOSE = $PS_CLOSE"
+#echo "defined separators"
+
+TIME="${PSCOLOR}\t"
+USER="${PSCOLOR}\u@\h"
+WHERE="${PSCOLOR}\w"
+#echo "defined components"
+
+function set_title_bar {
+
+    case $TERM in
+        xterm*)
+            TITLEBAR='\[\e]0;\u@\H:\w\007\]'
+            ;;
+        *)
+            TITLEBAR=''
+            ;;
+    esac
+}
+
+function gen_ps1 {
+
+    set_title_bar
+
+    if [[ ${#PWD} -lt $Wlen ]]; then
+        WPATH=$PWD
+    else
+        WPATH='...'${PWD: -$Wlen} 
+    fi
+    WHERE="${PSCOLOR}$WPATH"
+    unset PS1
+    GITBIT=$(/home/legrady/.bash/git-status)
+    export PS1="${TITLEBAR}${PS_SEP} ${TIME} ${PS_OPEN}${USER}${PS_CLOSE} ${WHERE} ${PS_SEP} ${GITBIT} ${PS_SEP}${NOCOLOR}\n${PS_SEP}${PSCOLOR}${POINTER}  ${NOCOLOR} "
+
+
+}
+export PROMPT_COMMAND=gen_ps1
+
+# (c) April, 2015 Tom Legrady <Tom@TomLegrady.com>
+#
+# Released under
+#   Artistic License (http://dev.perl.org/licenses/artistic.html)
+#   GNU Lublic License v3 (http://www.gnu.org/licenses/).
+# Use it, just don't claim you wrote it.
+
+# END OF FILE --------------------------------------------------
